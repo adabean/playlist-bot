@@ -47,7 +47,10 @@ class YoutubeClient:
     def auth_and_get_client(self):
         api_service_name = "youtube"
         api_version = "v3"
-        client_secret = json.loads(os.getenv("GOOGLE_OAUTH_CLIENT_SECRET_FILE_CONTENT"))
+        client_secret_str = os.getenv("GOOGLE_OAUTH_CLIENT_SECRET_FILE_CONTENT")
+        if not client_secret_str:
+            raise ValueError("Could not load Google OAuth client secret")
+        client_secret = json.loads(client_secret_str)
         scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
         flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_config(client_secret, scopes)
