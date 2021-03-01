@@ -27,7 +27,7 @@ class YoutubeClient:
         self.logger = logger or logging.getLogger("playlist_bot")
         self.client = self.auth_and_get_client()
 
-    def get_video_id_from_yturl(self, url: str):
+    def get_video_id_from_yturl(self, url: str) -> str:
         parsed = urllib.parse.urlparse(url)
         if parsed.netloc == "www.youtube.com" and parsed.path == "/watch":
             query = urllib.parse.parse_qs(parsed.query)
