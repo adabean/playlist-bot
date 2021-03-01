@@ -129,5 +129,4 @@ dmypy.json
 .pyre/
 
 # Project-specific things
-auth/*.json
 .env
