@@ -1,4 +1,3 @@
-import dotenv
 import logging
 import os
 import sys
@@ -29,6 +28,5 @@ class PlaylistBot:
 
 
 if __name__ == "__main__":
-    dotenv.load_dotenv()
     pb = PlaylistBot()
     pb.run()
