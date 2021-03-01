@@ -9,6 +9,7 @@ from typing import Optional
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
+import json
 import logging
 import os
 import urllib
@@ -46,11 +47,10 @@ class YoutubeClient:
     def auth_and_get_client(self):
         api_service_name = "youtube"
         api_version = "v3"
-        client_secrets_file = os.getcwd() + "/auth/" + os.getenv("GOOGLE_OAUTH_CLIENT_SECRET_FILE")
+        client_secret = json.loads(os.getenv("GOOGLE_OAUTH_CLIENT_SECRET_FILE_CONTENT"))
         scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
-        flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
-            client_secrets_file, scopes)
+        flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_config(client_secret, scopes)
         credentials = flow.run_console()
         return googleapiclient.discovery.build(
             api_service_name, api_version, credentials=credentials)
